@@ -24,7 +24,7 @@ public class DoctorAppointmentController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<DoctorAppointment> createAppointment(@RequestBody DoctorAppointment appointment) {
+    public ResponseEntity<DoctorAppointment> createAppointment(@Valid @RequestBody DoctorAppointment appointment) {
 
         Staff staff = staffRepository.findById(appointment.getStaff().getStaffId())
                          .orElseThrow(() -> new RuntimeException("Staff not found"));

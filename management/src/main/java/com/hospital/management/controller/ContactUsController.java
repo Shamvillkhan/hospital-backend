@@ -41,7 +41,7 @@ public class ContactUsController {
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<ContactUs> updateBlog(@RequestBody ContactUs contactUs) {
+	public ResponseEntity<ContactUs> updateBlog(@Valid @RequestBody ContactUs contactUs) {
 		ContactUs updatedContactUs = contactUsService.updateContact(contactUs);
 		return ResponseEntity.ok(updatedContactUs);
 	}

@@ -47,7 +47,7 @@ public class DiseaseController {
 	}
 
 	@PostMapping("/add")
-	public ResponseEntity<?> createDisease(
+	public ResponseEntity<?> createDisease(@Valid
 	        @RequestPart("disease") Disease disease,
 	        @RequestPart(value = "image", required = false) MultipartFile image) {
 

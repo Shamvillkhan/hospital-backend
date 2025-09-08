@@ -7,6 +7,8 @@ import com.hospital.management.repository.DepartmentRepository;
 import com.hospital.management.repository.StaffRepository;
 import com.hospital.management.service.StaffService;
 
+import jakarta.validation.Valid;
+
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,7 +40,7 @@ public class StaffController {
 
    
     @PostMapping("/add")
-    public ResponseEntity<Staff> createStaff(
+    public ResponseEntity<Staff> createStaff(@Valid
             @RequestParam("firstName") String firstName,
             @RequestParam("lastName") String lastName,
             @RequestParam("role") StaffRole role,
@@ -60,8 +62,7 @@ public class StaffController {
         staff.setEmail(email);
         staff.setHireDate(hireDate);
         
-        System.out.println(departmentId+"///////////?????????????????????");
-        // ✅ Fetch existing department from DB instead of creating new object
+       
         Department department = departmentRepository.findById(departmentId)
                 .orElseThrow(() -> new RuntimeException("Department not found with id: " + departmentId));
         staff.setDepartment(department);
@@ -69,7 +70,7 @@ public class StaffController {
         staff.setAddress(address);
         staff.setWorkingDays(workingDays);
 
-        // call service method
+
         Staff saved = staffService.createStaff(image, staff);
         return ResponseEntity.ok(saved);
     }
@@ -87,7 +88,7 @@ public class StaffController {
 
  
     @PutMapping("/update/{id}")
-    public ResponseEntity<Staff> updateStaff(@PathVariable long id, @RequestBody Staff staff) {
+    public ResponseEntity<Staff> updateStaff(@Valid @PathVariable long id, @RequestBody Staff staff) {
         return ResponseEntity.ok(staffService.updateStaff(id, staff));
     }
 

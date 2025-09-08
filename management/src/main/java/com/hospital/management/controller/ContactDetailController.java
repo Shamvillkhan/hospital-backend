@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import com.hospital.management.entity.ContactDetail;
 import com.hospital.management.service.ContactDetailServiceImpl;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/contactdetail")
 public class ContactDetailController {
@@ -34,13 +36,13 @@ public class ContactDetailController {
 
   
     @PostMapping("/add")
-    public ResponseEntity<ContactDetail> addContactDetail(@RequestBody ContactDetail contactDetail) {
+    public ResponseEntity<ContactDetail> addContactDetail(@Valid @RequestBody ContactDetail contactDetail) {
         return ResponseEntity.ok(contactDetailService.addContactDetail(contactDetail));
     }
 
    
     @PutMapping("/update")
-    public ResponseEntity<ContactDetail> updateContactDetail( 
+    public ResponseEntity<ContactDetail> updateContactDetail(@Valid 
                                                              @RequestBody ContactDetail contactDetail) {
      
         return ResponseEntity.ok(contactDetailService.updateContactDetail(contactDetail));

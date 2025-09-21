@@ -47,7 +47,7 @@ public class Staff {
 	@Column(name = "hire_date", nullable = false)
 	private LocalDate hireDate;
 
-	// 🔗 Foreign Key: Department
+
 	@ManyToOne
 	@JoinColumn(name = "department_id", nullable = false)
 	private Department department;
@@ -68,7 +68,7 @@ public class Staff {
 	@Column(name = "working_days", length = 255)
 	private String workingDays;
 
-	// --- Enum for Role ---
+
 	public enum StaffRole {
 		Doctor, Nurse, Admin, Receptionist
 	}

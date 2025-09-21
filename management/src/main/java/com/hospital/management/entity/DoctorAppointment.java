@@ -46,11 +46,14 @@ public class DoctorAppointment {
 	@JoinColumn(name = "staff_id")
 	private Staff staff;
 
+	@ManyToOne
+	@JoinColumn(name = "slot_id")
+	private Slots slot;
+
 	@NotBlank(message = "Phone number is required")
 	@Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be 10 digits")
 	@Column(name = "phone", nullable = false, length = 15)
 	private String phone;
-
 
 	public enum AppointmentStatus {
 		Scheduled, Completed, Cancelled
@@ -61,6 +64,27 @@ public class DoctorAppointment {
 
 	}
 
+	public DoctorAppointment(
+			@NotBlank(message = "Name is required") @Size(max = 45, message = "Name cannot exceed 45 characters") String name,
+			@NotNull(message = "Appointment date is required") LocalDate appointmentDate,
+			@NotNull(message = "Appointment time is required") LocalTime appointmentTime,
+			@NotNull(message = "Status is required") AppointmentStatus status,
+			@Size(max = 500, message = "Notes cannot exceed 500 characters") String notes,
+			@NotBlank(message = "Email is required") @Email(message = "Invalid email format") @Size(max = 45, message = "Email cannot exceed 45 characters") String email,
+			Staff staff, Slots slot,
+			@NotBlank(message = "Phone number is required") @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be 10 digits") String phone) {
+		super();
+		this.name = name;
+		this.appointmentDate = appointmentDate;
+		this.appointmentTime = appointmentTime;
+		this.status = status;
+		this.notes = notes;
+		this.email = email;
+		this.staff = staff;
+		this.slot = slot;
+		this.phone = phone;
+	}
+
 	public DoctorAppointment(long appointmentId,
 			@NotBlank(message = "Name is required") @Size(max = 45, message = "Name cannot exceed 45 characters") String name,
 			@NotNull(message = "Appointment date is required") LocalDate appointmentDate,
@@ -68,7 +92,7 @@ public class DoctorAppointment {
 			@NotNull(message = "Status is required") AppointmentStatus status,
 			@Size(max = 500, message = "Notes cannot exceed 500 characters") String notes,
 			@NotBlank(message = "Email is required") @Email(message = "Invalid email format") @Size(max = 45, message = "Email cannot exceed 45 characters") String email,
-			Staff staff,
+			Staff staff, Slots slot,
 			@NotBlank(message = "Phone number is required") @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be 10 digits") String phone) {
 		super();
 		this.appointmentId = appointmentId;
@@ -79,26 +103,7 @@ public class DoctorAppointment {
 		this.notes = notes;
 		this.email = email;
 		this.staff = staff;
-		this.phone = phone;
-	}
-
-	public DoctorAppointment(
-			@NotBlank(message = "Name is required") @Size(max = 45, message = "Name cannot exceed 45 characters") String name,
-			@NotNull(message = "Appointment date is required") LocalDate appointmentDate,
-			@NotNull(message = "Appointment time is required") LocalTime appointmentTime,
-			@NotNull(message = "Status is required") AppointmentStatus status,
-			@Size(max = 500, message = "Notes cannot exceed 500 characters") String notes,
-			@NotBlank(message = "Email is required") @Email(message = "Invalid email format") @Size(max = 45, message = "Email cannot exceed 45 characters") String email,
-			Staff staff,
-			@NotBlank(message = "Phone number is required") @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be 10 digits") String phone) {
-		super();
-		this.name = name;
-		this.appointmentDate = appointmentDate;
-		this.appointmentTime = appointmentTime;
-		this.status = status;
-		this.notes = notes;
-		this.email = email;
-		this.staff = staff;
+		this.slot = slot;
 		this.phone = phone;
 	}
 
@@ -166,6 +171,14 @@ public class DoctorAppointment {
 		this.staff = staff;
 	}
 
+	public Slots getSlot() {
+		return slot;
+	}
+
+	public void setSlot(Slots slot) {
+		this.slot = slot;
+	}
+
 	public String getPhone() {
 		return phone;
 	}
@@ -178,7 +191,7 @@ public class DoctorAppointment {
 	public String toString() {
 		return "DoctorAppointment [appointmentId=" + appointmentId + ", name=" + name + ", appointmentDate="
 				+ appointmentDate + ", appointmentTime=" + appointmentTime + ", status=" + status + ", notes=" + notes
-				+ ", email=" + email + ", staff=" + staff + ", phone=" + phone + "]";
+				+ ", email=" + email + ", staff=" + staff + ", slot=" + slot + ", phone=" + phone + "]";
 	}
 
 }

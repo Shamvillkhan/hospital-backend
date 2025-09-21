@@ -19,28 +19,28 @@ public class PatientController {
     @Autowired
     private PatientService patientService;
 
-    // 🔹 Create
+
     @PostMapping("/add")
     public ResponseEntity<Patients> createPatient(@RequestBody Patients patient) {
         Patients savedPatient = patientService.createPatient(patient);
         return ResponseEntity.ok(savedPatient);
     }
 
-    // 🔹 Update
+
     @PutMapping("/update/{id}")
     public ResponseEntity<Patients> updatePatient(@PathVariable Long id, @RequestBody Patients patient) {
         Patients updatedPatient = patientService.updatePatient(id, patient);
         return ResponseEntity.ok(updatedPatient);
     }
 
-    // 🔹 Delete
-    @DeleteMapping("/delete{id}")
+  
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deletePatient(@PathVariable Long id) {
         patientService.deletePatient(id);
         return ResponseEntity.ok("Patient deleted successfully with ID: " + id);
     }
 
-    // 🔹 Get by ID
+
     @GetMapping("/get/{id}")
     public ResponseEntity<Patients> getPatientById(@PathVariable Long id) {
         return patientService.getPatientById(id)
@@ -62,7 +62,6 @@ public class PatientController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // 🔹 Get by Phone
     @GetMapping("/phone/{phone}")
     public ResponseEntity<Patients> getPatientByPhone(@PathVariable String phone) {
         return patientService.getPatientByPhone(phone)
@@ -70,13 +69,13 @@ public class PatientController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // 🔹 Get by First Name
+
     @GetMapping("/firstname/{firstName}")
     public ResponseEntity<List<Patients>> getPatientsByFirstName(@PathVariable String firstName) {
         return ResponseEntity.ok(patientService.getPatientsByFirstName(firstName));
     }
 
-    // 🔹 Get by Last Name
+
     @GetMapping("/lastname/{lastName}")
     public ResponseEntity<List<Patients>> getPatientsByLastName(@PathVariable String lastName) {
         return ResponseEntity.ok(patientService.getPatientsByLastName(lastName));
@@ -90,14 +89,12 @@ public class PatientController {
         return ResponseEntity.ok(patientService.getPatientsByFullName(firstName, lastName));
     }
 
-    // 🔹 Get by Registration Date After
     @GetMapping("/registered-after/{dateTime}")
     public ResponseEntity<List<Patients>> getPatientsRegisteredAfter(@PathVariable String dateTime) {
         LocalDateTime parsedDate = LocalDateTime.parse(dateTime);
         return ResponseEntity.ok(patientService.getPatientsRegisteredAfter(parsedDate));
     }
 
-    // 🔹 Get by Registration Date Before
     @GetMapping("/registered-before/{dateTime}")
     public ResponseEntity<List<Patients>> getPatientsRegisteredBefore(@PathVariable String dateTime) {
         LocalDateTime parsedDate = LocalDateTime.parse(dateTime);

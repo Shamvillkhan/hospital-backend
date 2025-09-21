@@ -34,7 +34,7 @@ public class ContactUs {
 	private String email;
 
 	@NotBlank(message = "Subject is required")
-	@Size(min = 3, max = 50, message = "Subject must be between 3 to 50 characters")
+	@Size(min = 3, max = 100, message = "Subject must be between 3 to 50 characters")
 	@Column(name = "subject", nullable = false)
 	private String subject;
 

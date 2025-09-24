@@ -14,7 +14,7 @@ import com.hospital.management.fileutility.FileStorageService;
 import com.hospital.management.repository.DiseaseRepository;
 
 @Service
-public class DiseaseServiceImpl implements DiseaseService {
+public class  DiseaseServiceImpl implements DiseaseService {
 
 	private DiseaseRepository diseaseRepository;
 

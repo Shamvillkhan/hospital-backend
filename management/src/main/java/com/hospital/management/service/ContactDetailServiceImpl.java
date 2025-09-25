@@ -33,16 +33,15 @@ public class ContactDetailServiceImpl implements ContactDetailService {
     @Override
     public ContactDetail getContactDetailById(long id) {
         Optional<ContactDetail> optional = contactDetailRepository.findById(id);
-        return optional.orElse(null); // or throw custom exception
+        return optional.orElse(null); 
     }
 
     @Override
     public ContactDetail updateContactDetail(ContactDetail contactDetail) {
-        // Save will update if ID already exists
+
         return contactDetailRepository.save(contactDetail);
     }
 
-    // ✅ Custom method: fetch only active contact details
     public List<ContactDetail> getActiveContactDetails() {
         return contactDetailRepository.findAllByActiveTrue();
     }

@@ -48,10 +48,10 @@ public class BlogServiceImpl implements BlogService {
 	            throw new IllegalArgumentException("Author cannot be empty");
 	        }
 
-	        // ✅ File save operation
+	       
 	        if (image != null && !image.isEmpty()) {
 	            String fileName = FileStorageService.storeFile(image);
-	            blog.setImage(fileName); // Blogs entity me field hona chahiye
+	            blog.setImage(fileName); 
 	            blog.setImagePath(FileStorageService.getUploadDir()+"/"+fileName);
 	        }
 

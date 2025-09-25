@@ -43,8 +43,8 @@ public class HealthAppointment {
 	private String email;
 
 	@ManyToOne
-	@JoinColumn(name = "slot_id")
-	private Slots slot;
+	@JoinColumn(name = "doctor_slot_id")
+	private DoctorSlots doctorSlot;
 
 	@NotBlank(message = "Phone number is required")
 	@Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be 10 digits")
@@ -59,30 +59,6 @@ public class HealthAppointment {
 		super();
 
 	}
-	
-	
-
-	public HealthAppointment(
-			@NotBlank(message = "Name is required") @Size(max = 45, message = "Name cannot exceed 45 characters") String name,
-			@NotNull(message = "Appointment date is required") LocalDate appointmentDate,
-			@NotNull(message = "Appointment time is required") LocalTime appointmentTime,
-			@NotNull(message = "Status is required") AppointmentStatus status,
-			@Size(max = 500, message = "Notes cannot exceed 500 characters") String notes,
-			@NotBlank(message = "Email is required") @Email(message = "Invalid email format") @Size(max = 45, message = "Email cannot exceed 45 characters") String email,
-			Slots slot,
-			@NotBlank(message = "Phone number is required") @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be 10 digits") String phone) {
-		super();
-		this.name = name;
-		this.appointmentDate = appointmentDate;
-		this.appointmentTime = appointmentTime;
-		this.status = status;
-		this.notes = notes;
-		this.email = email;
-		this.slot = slot;
-		this.phone = phone;
-	}
-
-
 
 	public HealthAppointment(long appointmentId,
 			@NotBlank(message = "Name is required") @Size(max = 45, message = "Name cannot exceed 45 characters") String name,
@@ -91,7 +67,7 @@ public class HealthAppointment {
 			@NotNull(message = "Status is required") AppointmentStatus status,
 			@Size(max = 500, message = "Notes cannot exceed 500 characters") String notes,
 			@NotBlank(message = "Email is required") @Email(message = "Invalid email format") @Size(max = 45, message = "Email cannot exceed 45 characters") String email,
-			Slots slot,
+			DoctorSlots doctorSlot,
 			@NotBlank(message = "Phone number is required") @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be 10 digits") String phone) {
 		super();
 		this.appointmentId = appointmentId;
@@ -101,127 +77,109 @@ public class HealthAppointment {
 		this.status = status;
 		this.notes = notes;
 		this.email = email;
-		this.slot = slot;
+		this.doctorSlot = doctorSlot;
 		this.phone = phone;
 	}
 
-
+	public HealthAppointment(
+			@NotBlank(message = "Name is required") @Size(max = 45, message = "Name cannot exceed 45 characters") String name,
+			@NotNull(message = "Appointment date is required") LocalDate appointmentDate,
+			@NotNull(message = "Appointment time is required") LocalTime appointmentTime,
+			@NotNull(message = "Status is required") AppointmentStatus status,
+			@Size(max = 500, message = "Notes cannot exceed 500 characters") String notes,
+			@NotBlank(message = "Email is required") @Email(message = "Invalid email format") @Size(max = 45, message = "Email cannot exceed 45 characters") String email,
+			DoctorSlots doctorSlot,
+			@NotBlank(message = "Phone number is required") @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be 10 digits") String phone) {
+		super();
+		this.name = name;
+		this.appointmentDate = appointmentDate;
+		this.appointmentTime = appointmentTime;
+		this.status = status;
+		this.notes = notes;
+		this.email = email;
+		this.doctorSlot = doctorSlot;
+		this.phone = phone;
+	}
 
 	public long getAppointmentId() {
 		return appointmentId;
 	}
 
-
-
 	public void setAppointmentId(long appointmentId) {
 		this.appointmentId = appointmentId;
 	}
-
-
 
 	public String getName() {
 		return name;
 	}
 
-
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
-
 
 	public LocalDate getAppointmentDate() {
 		return appointmentDate;
 	}
 
-
-
 	public void setAppointmentDate(LocalDate appointmentDate) {
 		this.appointmentDate = appointmentDate;
 	}
-
-
 
 	public LocalTime getAppointmentTime() {
 		return appointmentTime;
 	}
 
-
-
 	public void setAppointmentTime(LocalTime appointmentTime) {
 		this.appointmentTime = appointmentTime;
 	}
-
-
 
 	public AppointmentStatus getStatus() {
 		return status;
 	}
 
-
-
 	public void setStatus(AppointmentStatus status) {
 		this.status = status;
 	}
-
-
 
 	public String getNotes() {
 		return notes;
 	}
 
-
-
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
-
-
 
 	public String getEmail() {
 		return email;
 	}
 
-
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-
-
-	public Slots getSlot() {
-		return slot;
+	public DoctorSlots getDoctorSlot() {
+		return doctorSlot;
 	}
 
-
-
-	public void setSlot(Slots slot) {
-		this.slot = slot;
+	public void setDoctorSlot(DoctorSlots doctorSlot) {
+		this.doctorSlot = doctorSlot;
 	}
-
-
 
 	public String getPhone() {
 		return phone;
 	}
 
-
-
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-
-
 
 	@Override
 	public String toString() {
 		return "HealthAppointment [appointmentId=" + appointmentId + ", name=" + name + ", appointmentDate="
 				+ appointmentDate + ", appointmentTime=" + appointmentTime + ", status=" + status + ", notes=" + notes
-				+ ", email=" + email + ", slot=" + slot + ", phone=" + phone + "]";
+				+ ", email=" + email + ", doctorSlot=" + doctorSlot + ", phone=" + phone + "]";
 	}
+
 	
-	
-	
+
 }

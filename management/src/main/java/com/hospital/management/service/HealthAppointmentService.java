@@ -9,13 +9,13 @@ public interface HealthAppointmentService {
 
 	HealthAppointment createAppointment(HealthAppointment appointment);
 
-	HealthAppointment getAppointmentById(Long id);
+	HealthAppointment getAppointmentById(long id);
 
     List<HealthAppointment> getAllAppointments();
 
-    HealthAppointment updateAppointment(Long id, HealthAppointment appointmentDetails);
+    HealthAppointment updateAppointment(long id, HealthAppointment appointmentDetails);
 
-    void deleteAppointment(Long id);
+    void deleteAppointment(long id);
     
     List<HealthAppointment> getAppointmentsByDate(LocalDate date);
     List<HealthAppointment> getAppointmentsByStatus(HealthAppointment.AppointmentStatus status);

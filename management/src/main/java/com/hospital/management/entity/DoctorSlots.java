@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -18,12 +19,12 @@ public class DoctorSlots {
 	private long doctorSlotId;
 
 	@NotNull(message = "Staff is required")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "staff_id", nullable = false)
 	private Staff staffId;
 
 	@NotNull(message = "Slot is required")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "slot_id", nullable = false)
 	private Slots slotId;
 
@@ -40,33 +41,40 @@ public class DoctorSlots {
 	@Column(name = "created_at", updatable = false)
 	private LocalDateTime createdAt;
 
+	@UpdateTimestamp
+	@Column(name = "updated_at", updatable = false)
+	private LocalDateTime updatedAt;
+	
 	public enum DayOfWeek {
 		Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday
 	}
 
 	public DoctorSlots() {
 		super();
-		// TODO Auto-generated constructor stub
+	
 	}
+	
+	
 
-	public DoctorSlots(
-			@NotNull(message = "Staff is required") @Positive(message = "Staff ID must be positive") Staff staffId,
-			@NotNull(message = "Slot ID is required") @Positive(message = "Slot ID must be positive") Slots slotId,
+	public DoctorSlots(@NotNull(message = "Staff is required") Staff staffId,
+			@NotNull(message = "Slot is required") Slots slotId,
 			@NotNull(message = "Day of week is required") DayOfWeek dayOfWeek, @NotNull Boolean isActive,
-			LocalDateTime createdAt) {
+			LocalDateTime createdAt, LocalDateTime updatedAt) {
 		super();
 		this.staffId = staffId;
 		this.slotId = slotId;
 		this.dayOfWeek = dayOfWeek;
 		this.isActive = isActive;
 		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
 	}
 
-	public DoctorSlots(long doctorSlotId,
-			@NotNull(message = "Staff is required") @Positive(message = "Staff ID must be positive") Staff staffId,
-			@NotNull(message = "Slot ID is required") @Positive(message = "Slot ID must be positive") Slots slotId,
+
+
+	public DoctorSlots(long doctorSlotId, @NotNull(message = "Staff is required") Staff staffId,
+			@NotNull(message = "Slot is required") Slots slotId,
 			@NotNull(message = "Day of week is required") DayOfWeek dayOfWeek, @NotNull Boolean isActive,
-			LocalDateTime createdAt) {
+			LocalDateTime createdAt, LocalDateTime updatedAt) {
 		super();
 		this.doctorSlotId = doctorSlotId;
 		this.staffId = staffId;
@@ -74,60 +82,102 @@ public class DoctorSlots {
 		this.dayOfWeek = dayOfWeek;
 		this.isActive = isActive;
 		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
 	}
+
+
 
 	public long getDoctorSlotId() {
 		return doctorSlotId;
 	}
 
+
+
 	public void setDoctorSlotId(long doctorSlotId) {
 		this.doctorSlotId = doctorSlotId;
 	}
+
+
 
 	public Staff getStaffId() {
 		return staffId;
 	}
 
+
+
 	public void setStaffId(Staff staffId) {
 		this.staffId = staffId;
 	}
+
+
 
 	public Slots getSlotId() {
 		return slotId;
 	}
 
+
+
 	public void setSlotId(Slots slotId) {
 		this.slotId = slotId;
 	}
+
+
 
 	public DayOfWeek getDayOfWeek() {
 		return dayOfWeek;
 	}
 
+
+
 	public void setDayOfWeek(DayOfWeek dayOfWeek) {
 		this.dayOfWeek = dayOfWeek;
 	}
+
+
 
 	public Boolean getIsActive() {
 		return isActive;
 	}
 
+
+
 	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
 	}
+
+
 
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
 
+
+
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
 
+
+
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
+
+
+
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "DoctorSlots [doctorSlotId=" + doctorSlotId + ", staffId=" + staffId + ", slotId=" + slotId
-				+ ", dayOfWeek=" + dayOfWeek + ", isActive=" + isActive + ", createdAt=" + createdAt + "]";
+				+ ", dayOfWeek=" + dayOfWeek + ", isActive=" + isActive + ", createdAt=" + createdAt + ", updatedAt="
+				+ updatedAt + "]";
 	}
+
+	
 
 }

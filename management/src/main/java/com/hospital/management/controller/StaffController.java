@@ -1,4 +1,4 @@
-package com.hospital.management.controller;
+	package com.hospital.management.controller;
 
 import com.hospital.management.entity.Department;
 import com.hospital.management.entity.Staff;

@@ -23,6 +23,19 @@ public class DoctorAppointmentServiceImpl implements DoctorAppointmentService {
 
     @Override
     public DoctorAppointment createAppointment(DoctorAppointment appointment) {
+    	DoctorSlots availableSlot = doctorSlotRepository.findById(appointment.getDoctorSlot().getDoctorSlotId())
+                .orElseThrow(() -> new RuntimeException("Slot not found with id: " + appointment.getDoctorSlot().getSlotId()));
+
+ 
+        if (availableSlot.getIsActive()) {
+           availableSlot.setIsActive(false);
+
+            System.out.println("slot is become booked");
+        } else {
+        	System.out.println("slot is already booked");
+            throw new RuntimeException("Selected slot is already booked!");
+        }
+    	
         return appointmentRepository.save(appointment);
     }
 

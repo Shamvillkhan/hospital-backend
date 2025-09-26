@@ -7,6 +7,8 @@ import jakarta.validation.constraints.Positive;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -18,15 +20,17 @@ public class DoctorSlots {
 	@Column(name = "doctor_slot_id")
 	private long doctorSlotId;
 
-	@NotNull(message = "Staff is required")
-    @ManyToOne
-    @JoinColumn(name = "staff_id", nullable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "slot_id", nullable = false)
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	private Slots slotId;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "staff_id", nullable = false)
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Staff staffId;
 
-	@NotNull(message = "Slot is required")
-    @ManyToOne
-    @JoinColumn(name = "slot_id", nullable = false)
-	private Slots slotId;
+	
 
 	@NotNull(message = "Day of week is required")
 	@Enumerated(EnumType.STRING)

@@ -41,11 +41,11 @@ public class TestimonialController {
 
     }
 
-    @PutMapping(path = "/update")
-    public ResponseEntity<Testimonial> update(@RequestBody Testimonial testimonial){
+    @PutMapping(path = "/update/{id}")
+    public ResponseEntity<Testimonial> update(@PathVariable long id,@RequestBody Testimonial testimonial ){
 
 
-        return  ResponseEntity.ok(testimonialService.persist(Optional.of(testimonial)));
+        return  ResponseEntity.ok(testimonialService.update(id,Optional.of(testimonial)));
     }
 
 }

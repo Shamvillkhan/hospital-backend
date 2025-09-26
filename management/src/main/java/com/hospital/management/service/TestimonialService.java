@@ -11,5 +11,5 @@ public interface TestimonialService {
     Testimonial persist(Optional<Testimonial> testimonial);
     void deleteById(long id);
     Optional<Testimonial> findById(long id);
-
+    Testimonial update(long id,Optional<Testimonial> testimonial);
 }

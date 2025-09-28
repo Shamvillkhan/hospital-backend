@@ -67,8 +67,7 @@ public class Patients {
 	private LocalDateTime registrationDate = LocalDateTime.now();
 
 
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<Billing> billing;
+
 
 	public enum Gender {
 		Male, Female, Other

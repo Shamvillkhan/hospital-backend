@@ -24,7 +24,7 @@ public class BillingController {
         }
         else {
 
-            throw new RuntimeException("billing list is null");
+            throw new RuntimeException("billing list is null in controller");
         }
 
     }
@@ -33,6 +33,20 @@ public class BillingController {
 
 
         return ResponseEntity.ok(billingService.persist(Optional.of(billing)));
+    }
+
+    @DeleteMapping(path = "/delete/{id}")
+    public void delete(@PathVariable long id){
+
+        billingService.deleteById(id);
+
+    }
+
+    @PutMapping(path = "/update/{id}")
+    public ResponseEntity<Billing> update(@PathVariable long id, @RequestBody Billing billing){
+
+
+        return ResponseEntity.ok(billingService.update(id,Optional.of(billing)));
     }
 
 

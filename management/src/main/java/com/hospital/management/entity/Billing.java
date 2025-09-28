@@ -38,6 +38,9 @@ public class Billing {
     private Date billing_date;
 
 
+    @ManyToOne()
+    @JoinColumn(name = "patient_id")
+    private Patients patients;
 
     public enum PaymentStatus{
         Paid,

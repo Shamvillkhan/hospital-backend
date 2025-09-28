@@ -10,5 +10,5 @@ public interface BillingService {
     Optional<Billing>   findById(long id);
     void deleteById(long id);
     Billing persist(Optional<Billing> billing);
-
+    Billing update(long id,Optional<Billing> billing);
 }

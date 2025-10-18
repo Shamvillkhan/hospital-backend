@@ -1,4 +1,4 @@
-	package com.hospital.management.controller;
+package com.hospital.management.controller;
 
 import com.hospital.management.entity.Department;
 import com.hospital.management.entity.Staff;
@@ -31,9 +31,20 @@ public class StaffController {
         this.departmentRepository=departmentRepository;
     }
     
+    @GetMapping("/doctors/count")
+    public long countDoctors() {
+    	return staffRepository.countByRole(Staff.StaffRole.Doctor);
+    }
+
+    @GetMapping("/count")
+    public long countStaffs() {
+    	staffService.getAllDoctors();
+        return staffRepository.count();
+    }
+    
     @GetMapping("/doctors")
     public List<Staff> getAllDoctors() {
-    	System.out.println(staffService.getAllDoctors());
+    
         return staffService.getAllDoctors();
     }
 

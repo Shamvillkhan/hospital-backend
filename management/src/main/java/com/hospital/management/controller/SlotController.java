@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.hospital.management.entity.Slots;
+import com.hospital.management.repository.SlotRepository;
 import com.hospital.management.service.SlotService;
 
 import jakarta.validation.Valid;
@@ -16,9 +17,17 @@ import jakarta.validation.Valid;
 public class SlotController {
 
     private final SlotService slotService;
+    private final SlotRepository slotRepo;
 
-    public SlotController(SlotService slotService) {
+    public SlotController(SlotService slotService,SlotRepository slotRepo) {
         this.slotService = slotService;
+        this.slotRepo=slotRepo;
+    }
+    
+    @GetMapping("/count")
+    public long countSlots() {
+    	
+        return slotRepo.count();
     }
 
     @PostMapping("/add")

@@ -17,4 +17,6 @@ public interface StaffRepository extends JpaRepository<Staff, Long> {
     List<Staff> findByRole(Staff.StaffRole role);
 
 
+    long countByRole(Staff.StaffRole role); // ✅ returns long
+
 }

@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hospital.management.entity.Blogs;
+import com.hospital.management.repository.BlogRepository;
 import com.hospital.management.service.BlogService;
 
 import jakarta.validation.Valid;
@@ -27,10 +28,20 @@ import jakarta.validation.Valid;
 public class BlogController {
 
 	private BlogService blogService;
+	private BlogRepository blogRepo;
 
-	public BlogController(BlogService blogService) {
+	public BlogController(BlogService blogService,BlogRepository blogRepo) {
 		this.blogService = blogService;
+		this.blogRepo=blogRepo;
 	}
+	
+	
+	@GetMapping("/count")
+    public long countBlogs() {
+    	
+        return blogRepo.count();
+    }
+	
 	
 	@GetMapping("/gett/{id}")
 	public ResponseEntity<?> getBlogById(@PathVariable Long id) {

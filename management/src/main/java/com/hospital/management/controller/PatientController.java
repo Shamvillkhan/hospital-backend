@@ -1,6 +1,7 @@
 package com.hospital.management.controller;
 
 import com.hospital.management.entity.Patients;
+import com.hospital.management.repository.PatientRepository;
 import com.hospital.management.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -16,9 +17,17 @@ import java.util.Optional;
 @RequestMapping("/patients")
 public class PatientController {
 
-    @Autowired
+	@Autowired
     private PatientService patientService;
-
+    
+	@Autowired
+    private PatientRepository patientRepo;
+    
+    
+    @GetMapping("/count")
+    public long countPatients() {
+    	return patientRepo.count();
+    }
 
     @PostMapping("/add")
     public ResponseEntity<Patients> createPatient(@RequestBody Patients patient) {

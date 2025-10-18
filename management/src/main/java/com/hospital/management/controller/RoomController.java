@@ -1,6 +1,7 @@
 package com.hospital.management.controller;
 
 import com.hospital.management.entity.Room;
+import com.hospital.management.repository.RoomRepository;
 import com.hospital.management.service.RoomService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,19 @@ import java.util.Map;
 public class RoomController {
 
     private final RoomService roomService;
+    private final RoomRepository roomRepo;
 
     @Autowired
-    public RoomController(RoomService roomService) {
+    public RoomController(RoomService roomService,RoomRepository roomRepo) {
         this.roomService = roomService;
+        this.roomRepo=roomRepo;
+    }
+    
+    
+    @GetMapping("/count")
+    public long countRooms() {
+    	
+        return roomRepo.count();
     }
 
     // ➕ Add Room

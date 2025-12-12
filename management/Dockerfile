@@ -1,26 +1,28 @@
-# Use official Java 17
-FROM openjdk:17-jdk-slim
+# Use Temurin Java 17 image
+FROM eclipse-temurin:17-jdk
 
 # Set working directory
 WORKDIR /app
 
-# Copy Maven wrapper and project files
+# Copy Maven wrapper and pom.xml first (for caching dependencies)
 COPY mvnw .
 COPY .mvn .mvn
 COPY pom.xml .
-COPY src ./src
 
-# Give execution permission to mvnw
+# Grant execute permission for mvnw
 RUN chmod +x mvnw
 
-# Build the project (skip tests)
+# Download dependencies only
+RUN ./mvnw dependency:go-offline -B
+
+# Copy the source code
+COPY src ./src
+
+# Build the project
 RUN ./mvnw clean package -DskipTests
 
-# Copy the generated jar
-COPY target/hospital-backend-0.0.1-SNAPSHOT.jar app.jar
-
-# Expose port
+# Expose port 8080 (Spring Boot default)
 EXPOSE 8080
 
-# Run the jar
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Run the Spring Boot jar
+CMD ["java", "-jar", "target/hospital-backend-0.0.1-SNAPSHOT.jar"]

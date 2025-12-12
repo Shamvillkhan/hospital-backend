@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hospital.management.entity.HealthAppointment;
+import com.hospital.management.repository.HealthAppointmentRepository;
+import com.hospital.management.repository.StaffRepository;
 import com.hospital.management.service.HealthAppointmentService;
 
 import jakarta.validation.Valid;
@@ -24,11 +26,19 @@ import jakarta.validation.Valid;
 public class HealthAppointmentController {
 
     private final HealthAppointmentService appointmentService;
+    private final HealthAppointmentRepository healthAppointment;
 
 
-    public HealthAppointmentController(HealthAppointmentService appointmentService) {
+    public HealthAppointmentController(HealthAppointmentRepository healthAppointment,HealthAppointmentService appointmentService) {
         this.appointmentService = appointmentService;
+        this.healthAppointment=healthAppointment;
 
+    }
+    
+    @GetMapping("/count")
+    public long countAppointment() {
+    	appointmentService.getAllAppointments();
+        return healthAppointment.count();
     }
 
     @PostMapping("/add")

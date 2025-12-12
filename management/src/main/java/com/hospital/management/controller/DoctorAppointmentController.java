@@ -2,6 +2,7 @@ package com.hospital.management.controller;
 
 import com.hospital.management.entity.DoctorAppointment;
 import com.hospital.management.entity.Staff;
+import com.hospital.management.repository.DoctorAppointmentRepository;
 import com.hospital.management.repository.StaffRepository;
 import com.hospital.management.service.DoctorAppointmentService;
 import jakarta.validation.Valid;
@@ -17,10 +18,19 @@ public class DoctorAppointmentController {
 
     private final DoctorAppointmentService appointmentService;
     private StaffRepository staffRepository;
+    private DoctorAppointmentRepository doctorAppointmentRepository;
+    
 
-    public DoctorAppointmentController(DoctorAppointmentService appointmentService,StaffRepository staffRepository) {
+    public DoctorAppointmentController(DoctorAppointmentRepository doctorAppointmentRepository,DoctorAppointmentService appointmentService,StaffRepository staffRepository) {
         this.appointmentService = appointmentService;
         this.staffRepository=staffRepository;
+        this.doctorAppointmentRepository=doctorAppointmentRepository;
+    }
+    
+    @GetMapping("/count")
+    public long countDoctorAppointment() {
+    	appointmentService.getAllAppointments();
+        return doctorAppointmentRepository.count();
     }
 
     @PostMapping("/add")
@@ -34,21 +44,20 @@ public class DoctorAppointmentController {
         return ResponseEntity.ok(saved);
     }
 
-    // 👉 Get appointment by ID
+   
     @GetMapping("/get/{id}")
     public ResponseEntity<DoctorAppointment> getAppointmentById(@PathVariable Long id) {
         DoctorAppointment appointment = appointmentService.getAppointmentById(id);
         return ResponseEntity.ok(appointment);
     }
 
-    // 👉 Get all appointments
+ 
     @GetMapping("/getall")
     public ResponseEntity<List<DoctorAppointment>> getAllAppointments() {
         List<DoctorAppointment> appointments = appointmentService.getAllAppointments();
         return ResponseEntity.ok(appointments);
     }
-
-    // 👉 Update appointment
+ 
     @PutMapping("/update/{id}")
     public ResponseEntity<DoctorAppointment> updateAppointment(
             @PathVariable Long id,
@@ -58,7 +67,7 @@ public class DoctorAppointmentController {
         return ResponseEntity.ok(updated);
     }
 
-    // 👉 Delete appointment
+ 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteAppointment(@PathVariable Long id) {
         appointmentService.deleteAppointment(id);
@@ -72,7 +81,7 @@ public class DoctorAppointmentController {
         return ResponseEntity.ok(appointmentService.getAppointmentsByDate(localDate));
     }
 
-    // ✅ Get appointments by status (Sorted by date ASC)
+     
     @GetMapping("/status/{status}")
     public ResponseEntity<List<DoctorAppointment>> getAppointmentsByStatus(@PathVariable String status) {
         DoctorAppointment.AppointmentStatus appointmentStatus =
@@ -80,7 +89,7 @@ public class DoctorAppointmentController {
         return ResponseEntity.ok(appointmentService.getAppointmentsByStatus(appointmentStatus));
     }
 
-    // ✅ Get appointments by date & status
+ 
     @GetMapping("/date/{date}/status/{status}")
     public ResponseEntity<List<DoctorAppointment>> getAppointmentsByDateAndStatus(
             @PathVariable String date,
